@@ -1,0 +1,392 @@
+
+
+
+
+Dynamic Host Configuration                                  S. Muthusamy
+Internet-Draft                                                    Y. Lee
+Intended status: Standards Track                                 Comcast
+Expires: 23 December 2023                                   21 June 2023
+
+
+       Mobile Subscription Info in DHCP and Router Advertisement
+                 draft-saravanan-dhc-mobile-sub-info-00
+
+Abstract
+
+   In some environments where a mobile device joins a network via simple
+   DHCP process, the serving network may want to know the mobile
+   device's mobile carrier id.  This is particularly useful when a
+   mobile device swtiches to a private Wi-Fi network such as home
+   network using user device private ssid.  The network can use the
+   mobile carrier id to identify the device's serving mobile network and
+   provide service continuity.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 23 December 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+
+
+
+
+
+
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 1]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+   2.  The Mobile-Subscription Option  . . . . . . . . . . . . . . .   3
+     2.1.  Client Behavior . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Server Behavior . . . . . . . . . . . . . . . . . . . . .   3
+     2.3.  The Mobile Subscription IPv4 DHCP Option  . . . . . . . .   3
+     2.4.  The Mobile Subscription IPv6 DHCP Option  . . . . . . . .   4
+     2.5.  The Mobile Subscription IPv6 RA Option  . . . . . . . . .   4
+     2.6.  Precedence of API URIs  . . . . . . . . . . . . . . . . .   5
+     2.7.  IANA Considerations . . . . . . . . . . . . . . . . . . .   5
+     2.8.  Security Considerations . . . . . . . . . . . . . . . . .   5
+   3.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
+   4.  Informative References  . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+
+1.  Introduction
+
+   When a mobile client roams in the ranage of a known Wi-Fi network, it
+   is common for the mobile client to switch from the mobile network to
+   the Wi-Fi network.  The Wi-Fi network may be setp using simple WAP2/3
+   Pre-Shared-Key (e.g., home private network) and does not require EAP-
+   AKA authentication [RFC4187] for the client to join the network.  As
+   such the network will not be able to identify the client's mobile
+   subscription.  In an environment where the mobile network and the Wi-
+   Fi network are of the same service proivder, the service provider may
+   want to retreive the mobile subscription information from the client
+   and provide service continuity (e.g., Parental Control) while the
+   client is on the Wi-Fi network.
+
+   In this artcile, we define a DHCPv4 [RFC2131] and DHCPv6 [RFC8415]
+   option (Mobile-Sub-Id) and an IPv6 RA Adverstisement (RA)
+   [RFC4861]that inform mobile clients to exchange Mobile Subscription
+   Id.
+
+
+
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 2]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+1.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 RFC 2119 [RFC2119] RFC 8174 [RFC8174] when, and only when, they
+   appear in all capitals, as shown here.
+
+2.  The Mobile-Subscription Option
+
+   The Mobile Subcription DHCP/RA Option signals the client that the
+   network wants to obtain the Mobile subscription information from the
+   client.  The option contains a URL the client may use it to securely
+   exchange mobile subscription information with the network.  Using a
+   mobile subscription info server allows the client and server to
+   exchange mobile subscription infomation without the 255-byte lenght
+   restriction imposed by DHCPv4 option.  Upon successful exchange, the
+   network MAY provide similar mobile network services (e.g., Parental
+   Control) after the client switching from the mobile network to the
+   Wi-Fi network using SSID/PSK combination.
+
+2.1.  Client Behavior
+
+   Clients that support Mobile-Subscription DHCP option SHOULD include
+   the option in the Parameter Request List in DHCPREQUEST message.
+   DHCP server MAY send the Mobile-Subscription option with explict
+   request.
+
+2.2.  Server Behavior
+
+   To support different types of clients (e.g., IPv4-only, IPv6-only
+   with DHCPv6 and IPv6-only with RA), the network must provide
+   different methods to inform the client of supporting the Mobile-
+   Subscription option.  The network SHOULD provision identical Mobile-
+   Subscription-URI in each method to avoid ambiguity.  As of the
+   maximum length of the URI that can be carried in DHCPv4 is 255 bytes,
+   URIs SHOULD not be longer than 255 bytes.  If the network supports
+   only DHCPv6, the restriction can be relaxed.  The URL MUST not
+   contain any explicit IP address information.
+
+2.3.  The Mobile Subscription IPv4 DHCP Option
+
+   The format of the IPv4 Mobile Subscription DHCP option is shown
+   below.
+
+
+
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 3]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+               0                   1                   2                   3
+               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               | Code          | Len           | URI (variable length) ...     |
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               .                   ...URI continued...                         .
+               |                              ...                              |
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+          Figure 1: Mobile Subscription DHCPv4 Option Format
+
+      Code:  The Captive-Portal DHCPv4 Option (TBD) (one octet).
+
+      Len:  The length (one octet), in octets, of the URI.
+
+      URI:  The URI for the mobile subscription API endpoint to which
+         the user should connect.
+
+2.4.  The Mobile Subscription IPv6 DHCP Option
+
+   The format of the IPv6 Mobile Subscription DHCP option is shown
+   below.
+
+
+               0                   1                   2                   3
+               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               |          option-code          |          option-len           |
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               .                      URI (variable length)                    .
+               |                              ...                              |
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+          Figure 2: Mobile Subscription DHCPv6 Option Format
+
+      option-code:  The Captive-Portal DHCPv6 Option (TBD) (two octet).
+
+      option-len:  The unsigned 16-bit length, in octets, of the URI.
+
+      URI:  The URI for the mobile subscription API endpoint to which
+         the user should connect (encoded following the rules in ).
+
+2.5.  The Mobile Subscription IPv6 RA Option
+
+   The format of the IPv6 Mobile Subscription RA option is shown below.
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 4]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+               0                   1                   2                   3
+               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+               |     Type      |     Length    |              URI              .
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               .
+               .                                                               .
+               .                                                               .
+               .                                                               .
+               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+            Figure 3: Mobile Subscription RA Option Format
+
+      Type:  TBD
+
+      Length:  8-bit unsigned integer.  The length of the option
+         (including the Type and Length fields) in units of 8 bytes.
+
+      URI:  The URI for the mobile subscription API endpoint to which
+         the user should connect.  This MUST be padded with NUL (0x00)
+         to make the total option length (including the Type and Length
+         fields) a multiple of 8 bytes.
+
+   Note that the URI parameter is not guaranteed to be null terminated.
+
+   As the maximum length of the URI that can be carried in IPv4 DHCP is
+   255 bytes, URIs longer than this SHOULD NOT be provisioned via IPv6
+   RA options.
+
+2.6.  Precedence of API URIs
+
+   When client receives the Mobile-Subscription option, it MUST retrieve
+   the URL from the option and initiate a HTTP-GET [RFC2616] Mobile-
+   Carrier-Id.  The format is http://URL?mobile-carrier-id.  If the
+   network return a Moble-Carrier-Id, the client SHOULD compare the
+   Mobile-Carrier-Id to the Id of the active SIM.  If they are the same,
+   the client SHOULD encrypt the IMSI using the public-key of EAP-AKA,
+   and send it over HTTP-GET.  The format is http://URL?imei=encrypted-
+   imsi.
+
+2.7.  IANA Considerations
+
+   Option TBA
+
+2.8.  Security Considerations
+
+   TBD
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 5]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+3.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC2131]  Droms, R., "Dynamic Host Configuration Protocol",
+              RFC 2131, DOI 10.17487/RFC2131, March 1997,
+              <https://www.rfc-editor.org/info/rfc2131>.
+
+   [RFC2616]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+              Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
+              Transfer Protocol -- HTTP/1.1", RFC 2616,
+              DOI 10.17487/RFC2616, June 1999,
+              <https://www.rfc-editor.org/info/rfc2616>.
+
+   [RFC4187]  Arkko, J. and H. Haverinen, "Extensible Authentication
+              Protocol Method for 3rd Generation Authentication and Key
+              Agreement (EAP-AKA)", RFC 4187, DOI 10.17487/RFC4187,
+              January 2006, <https://www.rfc-editor.org/info/rfc4187>.
+
+   [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
+              "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
+              DOI 10.17487/RFC4861, September 2007,
+              <https://www.rfc-editor.org/info/rfc4861>.
+
+   [RFC8415]  Mrugalski, T., Siodelski, M., Volz, B., Yourtchenko, A.,
+              Richardson, M., Jiang, S., Lemon, T., and T. Winters,
+              "Dynamic Host Configuration Protocol for IPv6 (DHCPv6)",
+              RFC 8415, DOI 10.17487/RFC8415, November 2018,
+              <https://www.rfc-editor.org/info/rfc8415>.
+
+4.  Informative References
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+Authors' Addresses
+
+   Saravanan Muthusamy
+   Comcast
+   1800 Arch Street
+   Philadelphia, PA 19103
+   United States of America
+   Email: Saravanan_Muthusamy@comcast.com
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 6]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
+   Yiu L. Lee
+   Comcast
+   1800 Arch Street
+   Philadelphia, PA 19103
+   United States of America
+   Email: yiu_lee@comcast.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 7]
