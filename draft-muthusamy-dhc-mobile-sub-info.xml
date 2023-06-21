@@ -128,7 +128,7 @@
             Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without 
             explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or 
-            its local policy instructs the client to skip it.</t>
+            its local policy choosees not to respond it.</t>
          </section>
 
          <section numbered="true" toc="default">
