@@ -150,7 +150,7 @@ Internet-Draft               mobile-sub-info                   June 2023
    request.  Client receives the URL in the option MAY initiate a
    request to the network to exchange Mobile Subscription Information.
    Client MAY safely ignore the option either it doesn't support it or
-   its local policy instructs the client to skip it.
+   its local policy choosees not to respond it.
 
 2.2.  Server Behavior
 
