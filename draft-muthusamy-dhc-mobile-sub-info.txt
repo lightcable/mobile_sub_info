@@ -13,13 +13,13 @@ Expires: 23 December 2023                                   21 June 2023
 
 Abstract
 
-   In some environments where a mobile device joins a network via simple
-   DHCP process, the serving network may want to know the mobile
-   device's mobile carrier id.  This is particularly useful when a
-   mobile device swtiches to a private Wi-Fi network such as home
-   network using user device private ssid.  The network can use the
-   mobile carrier id to identify the device's serving mobile network and
-   provide service continuity.
+   In some environments where a mobile clientdevice joins a network via
+   simple DHCP process, the serving network may want to know the mobile
+   client's mobile subscription information.  This is particularly
+   useful when a mobile client swtiches to a private Wi-Fi network such
+   as home network which uses simple SSID/Pre-Shared-Key combination.
+   The network can use the mobile subscription information to identify
+   the client's serving mobile network and provide service continuity.
 
 Status of This Memo
 
@@ -74,15 +74,15 @@ Table of Contents
    2.  The Mobile-Subscription Option  . . . . . . . . . . . . . . .   3
      2.1.  Client Behavior . . . . . . . . . . . . . . . . . . . . .   3
      2.2.  Server Behavior . . . . . . . . . . . . . . . . . . . . .   3
-     2.3.  The Mobile Subscription IPv4 DHCP Option  . . . . . . . .   3
+     2.3.  The Mobile Subscription IPv4 DHCP Option  . . . . . . . .   4
      2.4.  The Mobile Subscription IPv6 DHCP Option  . . . . . . . .   4
-     2.5.  The Mobile Subscription IPv6 RA Option  . . . . . . . . .   4
+     2.5.  The Mobile Subscription IPv6 RA Option  . . . . . . . . .   5
      2.6.  Precedence of API URIs  . . . . . . . . . . . . . . . . .   5
-     2.7.  IANA Considerations . . . . . . . . . . . . . . . . . . .   5
-     2.8.  Security Considerations . . . . . . . . . . . . . . . . .   5
+     2.7.  IANA Considerations . . . . . . . . . . . . . . . . . . .   6
+     2.8.  Security Considerations . . . . . . . . . . . . . . . . .   6
    3.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
    4.  Informative References  . . . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
@@ -127,20 +127,30 @@ Internet-Draft               mobile-sub-info                   June 2023
    The Mobile Subcription DHCP/RA Option signals the client that the
    network wants to obtain the Mobile subscription information from the
    client.  The option contains a URL the client may use it to securely
-   exchange mobile subscription information with the network.  Using a
-   mobile subscription info server allows the client and server to
-   exchange mobile subscription infomation without the 255-byte lenght
-   restriction imposed by DHCPv4 option.  Upon successful exchange, the
-   network MAY provide similar mobile network services (e.g., Parental
-   Control) after the client switching from the mobile network to the
-   Wi-Fi network using SSID/PSK combination.
+   exchange mobile subscription information with the network.  The
+   mechanism is similar to Captive-Portal Identification in DHCP and
+   Router Advertisements (RAs) defined in [RFC8910].  The Mobile
+   Subscription Option contains a URL that provides a web address to the
+   client to initiate a secure connection to exchange mobile
+   subscription infomation with the network.  The exchange process is
+   outside of the DHCP and RA process that gives flexibility to the
+   client and network to use standard web technology to securely
+   exchange information.  It also works round some of the protoocol
+   restrictions such as the 255-byte lenght restriction imposed by
+   DHCPv4 option.  Upon successful exchange, the network MAY continue to
+   provide similar mobile network services (e.g., Parental Control)
+   after the client switching from the mobile network to the Wi-Fi
+   network using SSID/PSK combination.
 
 2.1.  Client Behavior
 
    Clients that support Mobile-Subscription DHCP option SHOULD include
    the option in the Parameter Request List in DHCPREQUEST message.
-   DHCP server MAY send the Mobile-Subscription option with explict
-   request.
+   DHCP server MAY send the Mobile-Subscription option without explict
+   request.  Client receives the URL in the option MAY initate a request
+   to the network to exchange Mobile Subssciption Information.  Client
+   MAY safely ignore the option either it doesn't support it or its
+   local policy instructs the client to skip it.
 
 2.2.  Server Behavior
 
@@ -152,22 +162,20 @@ Internet-Draft               mobile-sub-info                   June 2023
    maximum length of the URI that can be carried in DHCPv4 is 255 bytes,
    URIs SHOULD not be longer than 255 bytes.  If the network supports
    only DHCPv6, the restriction can be relaxed.  The URL MUST not
-   contain any explicit IP address information.
-
-2.3.  The Mobile Subscription IPv4 DHCP Option
-
-   The format of the IPv4 Mobile Subscription DHCP option is shown
-   below.
-
-
-
-
 
 
 
 Muthusamy & Lee         Expires 23 December 2023                [Page 3]
 
 Internet-Draft               mobile-sub-info                   June 2023
+
+
+   contain any explicit IP address information.
+
+2.3.  The Mobile Subscription IPv4 DHCP Option
+
+   The format of the IPv4 Mobile Subscription DHCP option is shown
+   below.
 
 
                0                   1                   2                   3
@@ -211,19 +219,19 @@ Internet-Draft               mobile-sub-info                   June 2023
 
       option-len:  The unsigned 16-bit length, in octets, of the URI.
 
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 4]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
       URI:  The URI for the mobile subscription API endpoint to which
          the user should connect (encoded following the rules in ).
 
 2.5.  The Mobile Subscription IPv6 RA Option
 
    The format of the IPv6 Mobile Subscription RA option is shown below.
-
-
-
-
-Muthusamy & Lee         Expires 23 December 2023                [Page 4]
-
-Internet-Draft               mobile-sub-info                   June 2023
 
 
                0                   1                   2                   3
@@ -266,14 +274,6 @@ Internet-Draft               mobile-sub-info                   June 2023
    and send it over HTTP-GET.  The format is http://URL?imei=encrypted-
    imsi.
 
-2.7.  IANA Considerations
-
-   Option TBA
-
-2.8.  Security Considerations
-
-   TBD
-
 
 
 
@@ -281,6 +281,14 @@ Muthusamy & Lee         Expires 23 December 2023                [Page 5]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
+
+2.7.  IANA Considerations
+
+   Option TBA
+
+2.8.  Security Considerations
+
+   TBD
 
 3.  Normative References
 
@@ -315,7 +323,20 @@ Internet-Draft               mobile-sub-info                   June 2023
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
+   [RFC8910]  Kumari, W. and E. Kline, "Captive-Portal Identification in
+              DHCP and Router Advertisements (RAs)", RFC 8910,
+              DOI 10.17487/RFC8910, September 2020,
+              <https://www.rfc-editor.org/info/rfc8910>.
+
 4.  Informative References
+
+
+
+
+Muthusamy & Lee         Expires 23 December 2023                [Page 6]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -331,33 +352,12 @@ Authors' Addresses
    Email: Saravanan_Muthusamy@comcast.com
 
 
-
-
-Muthusamy & Lee         Expires 23 December 2023                [Page 6]
-
-Internet-Draft               mobile-sub-info                   June 2023
-
-
    Yiu L. Lee
    Comcast
    1800 Arch Street
    Philadelphia, PA 19103
    United States of America
    Email: yiu_lee@comcast.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

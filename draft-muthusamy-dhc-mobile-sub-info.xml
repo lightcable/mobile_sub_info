@@ -66,11 +66,11 @@
         output. If you submit your draft to the RFC Editor, the
         keywords will be used for the search engine. -->
       <abstract>
-         <t>In some environments where a mobile device joins a network via simple DHCP process, 
-     the serving network may want to know the mobile device's mobile carrier id. This is 
-     particularly useful when a mobile device swtiches to a private Wi-Fi network such
-     as home network using user device private ssid. The network can use the mobile
-     carrier id to identify the device's serving mobile network and provide service
+         <t>In some environments where a mobile clientdevice joins a network via simple DHCP process, 
+     the serving network may want to know the mobile client's mobile subscription information. This is 
+     particularly useful when a mobile client swtiches to a private Wi-Fi network such
+     as home network which uses simple SSID/Pre-Shared-Key combination. The network can use the mobile
+     subscription information to identify the client's serving mobile network and provide service
      continuity.</t>
       </abstract>
    </front>
@@ -111,26 +111,34 @@
       <section numbered="true" toc="default">
          <name>The Mobile-Subscription Option</name>
          <t>The Mobile Subcription DHCP/RA Option signals the client that the network wants to obtain the Mobile
-      subscription information from the client. The option contains a URL the client may use it to securely exchange mobile 
-      subscription information with the network. Using a mobile subscription info server allows the client and server to exchange 
-      mobile subscription infomation without the 255-byte lenght restriction imposed by DHCPv4 option. Upon successful exchange, 
-      the network MAY provide similar mobile network services (e.g., Parental Control) after the client switching from the mobile 
-      network to the Wi-Fi network using SSID/PSK combination.</t>
+         subscription information from the client. The option contains a URL the client may use it to securely exchange mobile 
+         subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP 
+         and Router Advertisements (RAs) defined in <xref target="RFC8910"/>. The Mobile Subscription Option contains 
+         a URL that provides a web address to the client to initiate a secure connection to exchange 
+         mobile subscription infomation with the network. The exchange process is outside of the DHCP and RA process
+         that gives flexibility to the client and network to use standard web technology to securely exchange information.
+         It also works round some of the protoocol restrictions such as the 255-byte lenght restriction imposed by DHCPv4 
+         option. Upon successful exchange, the network MAY continue to provide similar mobile network services 
+         (e.g., Parental Control) after the client switching from the mobile network to the Wi-Fi network using 
+         SSID/PSK combination.</t>
 
          <section numbered="true" toc="default">
             <name>Client Behavior</name>
             <t>Clients that support Mobile-Subscription DHCP option SHOULD include the option in the Parameter
-      Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option with explict request. </t>
+            Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without 
+            explict request. Client receives the URL in the option MAY initate a request to the network to exchange
+            Mobile Subssciption Information. Client MAY safely ignore the option either it doesn't support it or 
+            its local policy instructs the client to skip it.</t>
          </section>
 
          <section numbered="true" toc="default">
             <name>Server Behavior</name>
             <t>To support different types of clients (e.g., IPv4-only, IPv6-only with DHCPv6 and IPv6-only with RA), 
-      the network must provide different methods to inform the client of supporting the Mobile-Subscription option.
-      The network SHOULD provision identical Mobile-Subscription-URI in each method to avoid ambiguity. As of the
-      maximum length of the URI that can be carried in DHCPv4 is 255 bytes, URIs SHOULD not be longer than 255 bytes.
-      If the network supports only DHCPv6, the restriction can be relaxed. The URL MUST not contain any explicit 
-      IP address information.</t>
+            the network must provide different methods to inform the client of supporting the Mobile-Subscription option.
+            The network SHOULD provision identical Mobile-Subscription-URI in each method to avoid ambiguity. As of the
+            maximum length of the URI that can be carried in DHCPv4 is 255 bytes, URIs SHOULD not be longer than 255 bytes.
+            If the network supports only DHCPv6, the restriction can be relaxed. The URL MUST not contain any explicit 
+            IP address information.</t>
          </section>
 
          <section numbered="true" toc="default">
@@ -285,6 +293,7 @@
          <?rfc include="reference.RFC.4187.xml" ?>
          <?rfc include="reference.RFC.4861.xml" ?>
          <?rfc include="reference.RFC.8415.xml" ?>
+         <?rfc include="reference.RFC.8910.xml" ?>
       </references>
       <references title="Informative References">
          <?rfc include="reference.RFC.8174.xml" ?>
