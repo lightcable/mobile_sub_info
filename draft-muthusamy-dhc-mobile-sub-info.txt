@@ -5,7 +5,7 @@
 Dynamic Host Configuration                                  S. Muthusamy
 Internet-Draft                                                    Y. Lee
 Intended status: Standards Track                                 Comcast
-Expires: 23 December 2023                                   21 June 2023
+Expires: 24 December 2023                                   22 June 2023
 
 
        Mobile Subscription Info in DHCP and Router Advertisement
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 December 2023.
+   This Internet-Draft will expire on 24 December 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 1]
+Muthusamy & Lee         Expires 24 December 2023                [Page 1]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -95,13 +95,13 @@ Table of Contents
    client's mobile subscription.  In an environment where the mobile
    network and the Wi-Fi network are of the same service provider, the
    service provider may want to retrieve the mobile subscription
-   information from the client and provide service continuity (e.g.,
+   information from the client and offer service continuity (e.g.,
    Parental Control) while the client is on the Wi-Fi network.
 
    In this draft, we define a DHCPv4 [RFC2131] and DHCPv6 [RFC8415]
    option (Mobile-Sub-Id) and an IPv6 Router Advertisement (RA)
    [RFC4861]that inform mobile clients to exchange Mobile Subscription
-   Id.
+   Information with the network.
 
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 2]
+Muthusamy & Lee         Expires 24 December 2023                [Page 2]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -125,22 +125,22 @@ Internet-Draft               mobile-sub-info                   June 2023
 2.  The Mobile-Subscription Option
 
    The Mobile Subscription DHCP/RA Option signals the client that the
-   network wants to obtain the Mobile subscription information from the
+   network wants to obtain the Mobile subscription Information from the
    client.  The option contains a URL the client may use it to securely
    exchange mobile subscription information with the network.  The
    mechanism is similar to Captive-Portal Identification in DHCP and
    Router Advertisements (RAs) defined in [RFC8910].  The Mobile
    Subscription Option contains a URL that provides a web address to the
    client to initiate a secure connection to exchange mobile
-   subscription information with the network.  The exchange process is
-   outside of the DHCP and RA process that gives flexibility to the
-   client and network to use standard web technology to securely
-   exchange information.  It bypasses some of the protocol restrictions
-   such as the 255-byte length restriction imposed by DHCPv4 option.
-   Upon successful exchange, the network MAY continue to provide similar
-   mobile network services (e.g., Parental Control) after the client
-   switching from the mobile network to the Wi-Fi network using SSID/PSK
-   combination.
+   subscription information with the network.  The process is outside of
+   the DHCP and RA process that gives flexibility to the client and
+   network to use standard web technology to securely exchange messages.
+   As such, it bypasses some of the DHCP/RA protocol restrictions such
+   as the 255-byte length restriction imposed by DHCPv4 option.  Upon
+   successful information exchange, the network MAY continue to provide
+   similar mobile network services (e.g., Parental Control) after the
+   client switching from the mobile network to the Wi-Fi network using
+   SSID/PSK combination.
 
 2.1.  Client Behavior
 
@@ -150,7 +150,7 @@ Internet-Draft               mobile-sub-info                   June 2023
    request.  Client receives the URL in the option MAY initiate a
    request to the network to exchange Mobile Subscription Information.
    Client MAY safely ignore the option either it doesn't support it or
-   its local policy choosees not to respond it.
+   its local policy chooses not to respond.
 
 2.2.  Server Behavior
 
@@ -165,7 +165,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 3]
+Muthusamy & Lee         Expires 24 December 2023                [Page 3]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -221,7 +221,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 4]
+Muthusamy & Lee         Expires 24 December 2023                [Page 4]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -277,7 +277,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 5]
+Muthusamy & Lee         Expires 24 December 2023                [Page 5]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -333,7 +333,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 6]
+Muthusamy & Lee         Expires 24 December 2023                [Page 6]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -389,4 +389,4 @@ Authors' Addresses
 
 
 
-Muthusamy & Lee         Expires 23 December 2023                [Page 7]
+Muthusamy & Lee         Expires 24 December 2023                [Page 7]

@@ -67,11 +67,11 @@
         keywords will be used for the search engine. -->
       <abstract>
          <t>In some environments where a mobile client joins a network via simple DHCP process, 
-     the serving network may want to know the mobile client's mobile subscription information. This is 
-     particularly useful when a mobile client switches to a private Wi-Fi network such
-     as home network which uses simple SSID/Pre-Shared-Key combination. The network can use the mobile
-     subscription information to identify the client's serving mobile network and provide service
-     continuity.</t>
+         the serving network may want to know the mobile client's mobile subscription information. This is 
+         particularly useful when a mobile client switches to a private Wi-Fi network such
+         as home network which uses simple SSID/Pre-Shared-Key combination. The network can use the mobile
+         subscription information to identify the client's serving mobile network and provide service
+         continuity.</t>
       </abstract>
    </front>
    <middle>
@@ -79,26 +79,27 @@
          <name>Introduction</name>
          <t>
             When a mobile client roams in the range of a known Wi-Fi network, it is common 
-      for the mobile client to switch from the mobile network to the Wi-Fi network. The Wi-Fi network 
-      may be seup to use simple SSID/Pre-Shared-Key combination (e.g., home private network) and
-      does not require EAP-AKA authentication <xref target="RFC4187"/> for the client to join
-      the network. As such the network will not be able to identify the client's mobile 
-      subscription. In an environment where the mobile network
-      and the Wi-Fi network are of the same service provider, the service provider may want
-      to retrieve the mobile subscription information from the client and provide service continuity 
-      (e.g., Parental Control) while the client is on the Wi-Fi network.
+            for the mobile client to switch from the mobile network to the Wi-Fi network. The Wi-Fi network 
+            may be seup to use simple SSID/Pre-Shared-Key combination (e.g., home private network) and
+            does not require EAP-AKA authentication <xref target="RFC4187"/> for the client to join
+            the network. As such the network will not be able to identify the client's mobile 
+            subscription. In an environment where the mobile network
+            and the Wi-Fi network are of the same service provider, the service provider may want
+            to retrieve the mobile subscription information from the client and offer service continuity 
+            (e.g., Parental Control) while the client is on the Wi-Fi network.
          </t>
          <t>
             In this draft, we define a DHCPv4 <xref target="RFC2131"/> and DHCPv6
             <xref target="RFC8415"/> option (Mobile-Sub-Id) and an IPv6 Router Advertisement
-            (RA) <xref target="RFC4861"/>that inform mobile clients to exchange Mobile Subscription Id.
+            (RA) <xref target="RFC4861"/>that inform mobile clients to exchange Mobile Subscription Information
+            with the network.
          </t>
          <section numbered="true" toc="default">
             <name>Requirements Language</name>
             <t>
                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-       "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
-       document are to be interpreted as described in BCP 14
+               "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this
+               document are to be interpreted as described in BCP 14
                <xref target="RFC2119" format="default">RFC 2119</xref>
                <xref target="RFC8174" format="default">RFC 8174</xref>
                when, and only when, they appear in all capitals, as shown here.
@@ -111,14 +112,14 @@
       <section numbered="true" toc="default">
          <name>The Mobile-Subscription Option</name>
          <t>The Mobile Subscription DHCP/RA Option signals the client that the network wants to obtain the Mobile
-         subscription information from the client. The option contains a URL the client may use it to securely exchange mobile 
+         subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile 
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP 
          and Router Advertisements (RAs) defined in <xref target="RFC8910"/>. The Mobile Subscription Option contains 
          a URL that provides a web address to the client to initiate a secure connection to exchange 
-         mobile subscription information with the network. The exchange process is outside of the DHCP and RA process
-         that gives flexibility to the client and network to use standard web technology to securely exchange information.
-         It bypasses some of the protocol restrictions such as the 255-byte length restriction imposed by DHCPv4 
-         option. Upon successful exchange, the network MAY continue to provide similar mobile network services 
+         mobile subscription information with the network. The process is outside of the DHCP and RA process
+         that gives flexibility to the client and network to use standard web technology to securely exchange messages.
+         As such, it bypasses some of the DHCP/RA protocol restrictions such as the 255-byte length restriction imposed by DHCPv4 
+         option. Upon successful information exchange, the network MAY continue to provide similar mobile network services 
          (e.g., Parental Control) after the client switching from the mobile network to the Wi-Fi network using 
          SSID/PSK combination.</t>
 
@@ -128,7 +129,7 @@
             Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without 
             explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or 
-            its local policy choosees not to respond it.</t>
+            its local policy chooses not to respond.</t>
          </section>
 
          <section numbered="true" toc="default">
