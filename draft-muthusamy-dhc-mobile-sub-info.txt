@@ -5,7 +5,7 @@
 Dynamic Host Configuration                                  S. Muthusamy
 Internet-Draft                                                    Y. Lee
 Intended status: Standards Track                                 Comcast
-Expires: 24 December 2023                                   22 June 2023
+Expires: 31 December 2023                                   29 June 2023
 
 
        Mobile Subscription Info in DHCP and Router Advertisement
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 December 2023.
+   This Internet-Draft will expire on 31 December 2023.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Muthusamy & Lee         Expires 24 December 2023                [Page 1]
+Muthusamy & Lee         Expires 31 December 2023                [Page 1]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -81,7 +81,7 @@ Table of Contents
      2.7.  IANA Considerations . . . . . . . . . . . . . . . . . . .   6
      2.8.  Security Considerations . . . . . . . . . . . . . . . . .   6
    3.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
-   4.  Informative References  . . . . . . . . . . . . . . . . . . .   6
+   4.  Informative References  . . . . . . . . . . . . . . . . . . .   7
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Muthusamy & Lee         Expires 24 December 2023                [Page 2]
+Muthusamy & Lee         Expires 31 December 2023                [Page 2]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -165,7 +165,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 24 December 2023                [Page 3]
+Muthusamy & Lee         Expires 31 December 2023                [Page 3]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -221,7 +221,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 24 December 2023                [Page 4]
+Muthusamy & Lee         Expires 31 December 2023                [Page 4]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -266,18 +266,18 @@ Internet-Draft               mobile-sub-info                   June 2023
 2.6.  Precedence of API URIs
 
    When client receives the Mobile-Subscription option, it MUST retrieve
-   the URL from the option and initiate a HTTP-GET [RFC2616] Mobile-
-   Carrier-Id.  The format is http://URL?mobile-carrier-id.  If the
-   network return a Moble-Carrier-Id, the client SHOULD compare the
-   Mobile-Carrier-Id to the Id of the active SIM.  If they are the same,
-   the client SHOULD encrypt the IMSI using the public-key of EAP-AKA,
-   and send it over HTTP-GET.  The format is http://URL?imei=encrypted-
-   imsi.
+   the URL from the option and initiate a GET request [RFC2616] with
+   Mobile-Carrier-Id over HTTPS [RFC2818].  The format is
+   https://URL?mobile-carrier-id.  If the network return a Moble-
+   Carrier-Id, the client SHOULD compare the Mobile-Carrier-Id to the Id
+   of the active SIM.  If they are the same, the client SHOULD encrypt
+   the IMSI using the public-key of EAP-AKA, and send it over GET
+   request.  The format is https://URL?imei=encrypted-imsi.
 
 
 
 
-Muthusamy & Lee         Expires 24 December 2023                [Page 5]
+Muthusamy & Lee         Expires 31 December 2023                [Page 5]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -307,6 +307,10 @@ Internet-Draft               mobile-sub-info                   June 2023
               DOI 10.17487/RFC2616, June 1999,
               <https://www.rfc-editor.org/info/rfc2616>.
 
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
+              DOI 10.17487/RFC2818, May 2000,
+              <https://www.rfc-editor.org/info/rfc2818>.
+
    [RFC4187]  Arkko, J. and H. Haverinen, "Extensible Authentication
               Protocol Method for 3rd Generation Authentication and Key
               Agreement (EAP-AKA)", RFC 4187, DOI 10.17487/RFC4187,
@@ -323,20 +327,23 @@ Internet-Draft               mobile-sub-info                   June 2023
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
+
+
+
+
+
+
+Muthusamy & Lee         Expires 31 December 2023                [Page 6]
+
+Internet-Draft               mobile-sub-info                   June 2023
+
+
    [RFC8910]  Kumari, W. and E. Kline, "Captive-Portal Identification in
               DHCP and Router Advertisements (RAs)", RFC 8910,
               DOI 10.17487/RFC8910, September 2020,
               <https://www.rfc-editor.org/info/rfc8910>.
 
 4.  Informative References
-
-
-
-
-Muthusamy & Lee         Expires 24 December 2023                [Page 6]
-
-Internet-Draft               mobile-sub-info                   June 2023
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -382,11 +389,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-Muthusamy & Lee         Expires 24 December 2023                [Page 7]
+Muthusamy & Lee         Expires 31 December 2023                [Page 7]

@@ -256,12 +256,13 @@
             <name>Precedence of API URIs</name>
             <t>
                When client receives the Mobile-Subscription option, it
-      MUST retrieve the URL from the option and initiate a HTTP-GET
-               <xref target="RFC2616" />
-               Mobile-Carrier-Id. The format is http://URL?mobile-carrier-id. If the network return a Moble-Carrier-Id,
-      the client SHOULD compare the Mobile-Carrier-Id to the Id of the active SIM. If they are the same,
-      the client SHOULD encrypt the IMSI using the public-key of EAP-AKA, and send it over HTTP-GET. The format
-      is http://URL?imei=encrypted-imsi.
+               MUST retrieve the URL from the option and initiate a GET request
+               <xref target="RFC2616" /> with
+               Mobile-Carrier-Id over HTTPS <xref target="RFC2818" />. 
+               The format is https://URL?mobile-carrier-id. If the network return a Moble-Carrier-Id,
+               the client SHOULD compare the Mobile-Carrier-Id to the Id of the active SIM. If they are the same,
+               the client SHOULD encrypt the IMSI using the public-key of EAP-AKA, and send it over GET request. 
+               The format is https://URL?imei=encrypted-imsi.
             </t>
          </section>
 
@@ -291,6 +292,7 @@
          <?rfc include="reference.RFC.2119.xml" ?>
          <?rfc include="reference.RFC.2131.xml" ?>
          <?rfc include="reference.RFC.2616.xml" ?>
+         <?rfc include="reference.RFC.2818.xml" ?>
          <?rfc include="reference.RFC.4187.xml" ?>
          <?rfc include="reference.RFC.4861.xml" ?>
          <?rfc include="reference.RFC.8415.xml" ?>
@@ -300,11 +302,9 @@
          <?rfc include="reference.RFC.8174.xml" ?>
       </references>
 
-
-
       <!-- Change Log
 
-         v00 - First Draft (20230620)
+         v00 - First Draft (20230629)
 
       -->
    </back>
