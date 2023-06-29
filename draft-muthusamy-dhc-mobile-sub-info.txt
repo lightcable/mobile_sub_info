@@ -178,17 +178,17 @@ Internet-Draft               mobile-sub-info                   June 2023
    below.
 
 
-               0                   1                   2                   3
-               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               | Code          | Len           | URI (variable length) ...     |
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               .                   ...URI continued...                         .
-               |                              ...                              |
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      | Code          | Len           | URI (variable length) ...     |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      .                   ...URI continued...                         .
+      |                              ...                              |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
-          Figure 1: Mobile Subscription DHCPv4 Option Format
+             Figure 1: Mobile Subscription DHCPv4 Option Format
 
       Code:  The Captive-Portal DHCPv4 Option (TBD) (one octet).
 
@@ -203,17 +203,17 @@ Internet-Draft               mobile-sub-info                   June 2023
    below.
 
 
-               0                   1                   2                   3
-               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               |          option-code          |          option-len           |
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               .                      URI (variable length)                    .
-               |                              ...                              |
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |          option-code          |          option-len           |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      .                      URI (variable length)                    .
+      |                              ...                              |
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
-          Figure 2: Mobile Subscription DHCPv6 Option Format
+             Figure 2: Mobile Subscription DHCPv6 Option Format
 
       option-code:  The Captive-Portal DHCPv6 Option (TBD) (two octet).
 
@@ -234,18 +234,18 @@ Internet-Draft               mobile-sub-info                   June 2023
    The format of the IPv6 Mobile Subscription RA option is shown below.
 
 
-               0                   1                   2                   3
-               0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-               |     Type      |     Length    |              URI              .
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               .
-               .                                                               .
-               .                                                               .
-               .                                                               .
-               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      |     Type      |     Length    |              URI              .
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+                               .
+      .                                                               .
+      .                                                               .
+      .                                                               .
+      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
-            Figure 3: Mobile Subscription RA Option Format
+               Figure 3: Mobile Subscription RA Option Format
 
       Type:  TBD
 
@@ -271,9 +271,9 @@ Internet-Draft               mobile-sub-info                   June 2023
    https://URL?mobile-carrier-id.  If the network return a Moble-
    Carrier-Id, the client SHOULD compare the Mobile-Carrier-Id to the Id
    of the active SIM.  If they are the same, the client SHOULD encrypt
-   the IMSI using the public-key of EAP-AKA, and send it over GET
-   request.  The format is https://URL?imei=encrypted-imsi.
-
+   the IMSI using the public-key of EAP-AKA [RFC4187], and send it over
+   a GET request [RFC2616] overt HTTPS [RFC2818].  The format is
+   https://URL?imei=encrypted-imsi.
 
 
 
