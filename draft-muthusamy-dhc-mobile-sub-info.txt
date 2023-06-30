@@ -5,7 +5,7 @@
 Dynamic Host Configuration                                  S. Muthusamy
 Internet-Draft                                                    Y. Lee
 Intended status: Standards Track                                 Comcast
-Expires: 31 December 2023                                   29 June 2023
+Expires: 1 January 2024                                     30 June 2023
 
 
        Mobile Subscription Info in DHCP and Router Advertisement
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 December 2023.
+   This Internet-Draft will expire on 1 January 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 1]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 1]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 2]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 2]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -131,12 +131,12 @@ Internet-Draft               mobile-sub-info                   June 2023
    mechanism is similar to Captive-Portal Identification in DHCP and
    Router Advertisements (RAs) defined in [RFC8910].  The Mobile
    Subscription Option contains a URL that provides a web address to the
-   client to initiate a secure connection to exchange mobile
-   subscription information with the network.  The process is outside of
-   the DHCP and RA process that gives flexibility to the client and
-   network to use standard web technology to securely exchange messages.
-   As such, it bypasses some of the DHCP/RA protocol restrictions such
-   as the 255-byte length restriction imposed by DHCPv4 option.  Upon
+   client to initiate a secure connection to trigger the EAP-AKA process
+   [RFC4187] with the network.  The process is outside of the DHCP and
+   RA protocol process that gives flexibility to the client and network
+   to use standard web technology to securely exchange messages.  As
+   such, it bypasses some of the DHCP/RA protocol restrictions such as
+   the 255-byte length restriction imposed by DHCPv4 option.  Upon
    successful information exchange, the network MAY continue to provide
    similar mobile network services (e.g., Parental Control) after the
    client switching from the mobile network to the Wi-Fi network using
@@ -165,7 +165,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 3]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 3]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -221,7 +221,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 4]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 4]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -265,19 +265,19 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 2.6.  Precedence of API URIs
 
-   When client receives the Mobile-Subscription option, it MUST retrieve
-   the URL from the option and initiate a GET request [RFC2616] with
-   Mobile-Carrier-Id over HTTPS [RFC2818].  The format is
-   https://URL?mobile-carrier-id.  If the network return a Moble-
-   Carrier-Id, the client SHOULD compare the Mobile-Carrier-Id to the Id
-   of the active SIM.  If they are the same, the client SHOULD encrypt
-   the IMSI using the public-key of EAP-AKA [RFC4187], and send it over
-   a GET request [RFC2616] overt HTTPS [RFC2818].  The format is
-   https://URL?imei=encrypted-imsi.
+   When client receives the Mobile-Subscription option and supports the
+   option, it MUST retrieve the URL from the option and initiate a GET
+   request [RFC2616] over HTTPS [RFC2818].  When the network receives
+   the request, it will start the EAP-AKA process over HTTPS [RFC4187]
+   by sending EAP-Request/AKA-Identity to the client.
+
+   In this draft, we present EAP-AKA as the mobile information exchange
+   method.  However, other methods could also be considered.  This is
+   out-of-scope of this draft.
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 5]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 5]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -333,7 +333,7 @@ Internet-Draft               mobile-sub-info                   June 2023
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 6]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 6]
 
 Internet-Draft               mobile-sub-info                   June 2023
 
@@ -389,4 +389,4 @@ Authors' Addresses
 
 
 
-Muthusamy & Lee         Expires 31 December 2023                [Page 7]
+Muthusamy & Lee          Expires 1 January 2024                 [Page 7]

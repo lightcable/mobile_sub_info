@@ -115,8 +115,8 @@
          subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile 
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP 
          and Router Advertisements (RAs) defined in <xref target="RFC8910"/>. The Mobile Subscription Option contains 
-         a URL that provides a web address to the client to initiate a secure connection to exchange 
-         mobile subscription information with the network. The process is outside of the DHCP and RA process
+         a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
+         <xref target="RFC4187"/> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
          As such, it bypasses some of the DHCP/RA protocol restrictions such as the 255-byte length restriction imposed by DHCPv4 
          option. Upon successful information exchange, the network MAY continue to provide similar mobile network services 
@@ -255,15 +255,15 @@
          <section numbered="true" toc="default">
             <name>Precedence of API URIs</name>
             <t>
-               When client receives the Mobile-Subscription option, it
+               When client receives the Mobile-Subscription option and supports the option, it
                MUST retrieve the URL from the option and initiate a GET request
-               <xref target="RFC2616" /> with
-               Mobile-Carrier-Id over HTTPS <xref target="RFC2818" />. 
-               The format is https://URL?mobile-carrier-id. If the network return a Moble-Carrier-Id,
-               the client SHOULD compare the Mobile-Carrier-Id to the Id of the active SIM. If they are the same,
-               the client SHOULD encrypt the IMSI using the public-key of EAP-AKA <xref target="RFC4187" />, 
-               and send it over a GET request <xref target="RFC2616" /> overt HTTPS <xref target="RFC2818" />. 
-               The format is https://URL?imei=encrypted-imsi.
+               <xref target="RFC2616" /> over HTTPS <xref target="RFC2818" />. When the network receives
+               the request, it will start the EAP-AKA process over HTTPS <xref target="RFC4187" />
+               by sending EAP-Request/AKA-Identity to the client.
+            </t>
+            <t>
+               In this draft, we present EAP-AKA as the mobile information exchange method. However, other
+               methods could also be considered. This is out-of-scope of this draft.
             </t>
          </section>
 
