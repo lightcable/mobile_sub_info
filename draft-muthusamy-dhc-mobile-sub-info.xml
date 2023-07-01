@@ -262,8 +262,8 @@
                over HTTPS <xref target="RFC4187" />
                by sending EAP-Request/AKA-Identity to exchange mobile subscription information
                with the client. Note that this precedence is independent to the DHCP and RA protocol.
-               Should a client choose not to use this option, it does not have any impact to the DHCP
-               and RA process.
+               Should a client choose not to use this option or the EAP-AKA process fails, it does not 
+               impact the DHCP and RA process.
             </t>
             <t>
                In this draft, we present EAP-AKA as the mobile information exchange method. However, other
@@ -301,10 +301,10 @@
          <?rfc include="reference.RFC.4187.xml" ?>
          <?rfc include="reference.RFC.4861.xml" ?>
          <?rfc include="reference.RFC.8415.xml" ?>
-         <?rfc include="reference.RFC.8910.xml" ?>
       </references>
       <references title="Informative References">
          <?rfc include="reference.RFC.8174.xml" ?>
+         <?rfc include="reference.RFC.8910.xml" ?>
       </references>
 
       <!-- Change Log

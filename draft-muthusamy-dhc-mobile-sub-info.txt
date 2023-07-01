@@ -272,8 +272,8 @@ Internet-Draft               mobile-sub-info                   July 2023
    over HTTPS [RFC4187] by sending EAP-Request/AKA-Identity to exchange
    mobile subscription information with the client.  Note that this
    precedence is independent to the DHCP and RA protocol.  Should a
-   client choose not to use this option, it does not have any impact to
-   the DHCP and RA process.
+   client choose not to use this option or the EAP-AKA process fails, it
+   does not impact the DHCP and RA process.
 
 
 
@@ -338,16 +338,16 @@ Muthusamy & Lee          Expires 2 January 2024                 [Page 6]
 Internet-Draft               mobile-sub-info                   July 2023
 
 
-   [RFC8910]  Kumari, W. and E. Kline, "Captive-Portal Identification in
-              DHCP and Router Advertisements (RAs)", RFC 8910,
-              DOI 10.17487/RFC8910, September 2020,
-              <https://www.rfc-editor.org/info/rfc8910>.
-
 4.  Informative References
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8910]  Kumari, W. and E. Kline, "Captive-Portal Identification in
+              DHCP and Router Advertisements (RAs)", RFC 8910,
+              DOI 10.17487/RFC8910, September 2020,
+              <https://www.rfc-editor.org/info/rfc8910>.
 
 Authors' Addresses
 
