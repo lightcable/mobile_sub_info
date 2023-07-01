@@ -255,11 +255,15 @@
          <section numbered="true" toc="default">
             <name>Precedence of API URIs</name>
             <t>
-               When client receives the Mobile-Subscription option and supports the option, it
-               MUST retrieve the URL from the option and initiate a GET request
-               <xref target="RFC2616" /> over HTTPS <xref target="RFC2818" />. When the network receives
-               the request, it will start the EAP-AKA process over HTTPS <xref target="RFC4187" />
-               by sending EAP-Request/AKA-Identity to the client.
+               When client receives the Mobile-Subscription option and supports this option, it
+               SHOULD retrieve the URL from the option and initiate a GET request
+               <xref target="RFC2616" /> with the URL over HTTPS <xref target="RFC2818" />. When 
+               the network receives the request, it SHOULD start the EAP-AKA process 
+               over HTTPS <xref target="RFC4187" />
+               by sending EAP-Request/AKA-Identity to exchange mobile subscription information
+               with the client. Note that this precedence is independent to the DHCP and RA protocol.
+               Should a client choose not to use this option, it does not have any impact to the DHCP
+               and RA process.
             </t>
             <t>
                In this draft, we present EAP-AKA as the mobile information exchange method. However, other
