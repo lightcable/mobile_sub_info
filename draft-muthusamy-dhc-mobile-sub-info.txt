@@ -5,11 +5,11 @@
 Dynamic Host Configuration                                  S. Muthusamy
 Internet-Draft                                                    Y. Lee
 Intended status: Standards Track                                 Comcast
-Expires: 2 January 2024                                      1 July 2023
+Expires: 13 January 2024                                    12 July 2023
 
 
        Mobile Subscription Info in DHCP and Router Advertisement
-                 draft-saravanan-dhc-mobile-sub-info-00
+               draft-muthusamy-dhc-mobile-sub-info-latest
 
 Abstract
 
@@ -36,27 +36,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2024.
+   This Internet-Draft will expire on 13 January 2024.
 
 Copyright Notice
 
    Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
-
-
-
-
-
-
-
-
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 1]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
@@ -69,20 +54,20 @@ Internet-Draft               mobile-sub-info                   July 2023
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
-   2.  The Mobile-Subscription Option  . . . . . . . . . . . . . . .   3
-     2.1.  Client Behavior . . . . . . . . . . . . . . . . . . . . .   3
-     2.2.  Server Behavior . . . . . . . . . . . . . . . . . . . . .   3
-     2.3.  The Mobile Subscription IPv4 DHCP Option  . . . . . . . .   4
-     2.4.  The Mobile Subscription IPv6 DHCP Option  . . . . . . . .   4
-     2.5.  The Mobile Subscription IPv6 RA Option  . . . . . . . . .   5
-     2.6.  Precedence of API URIs  . . . . . . . . . . . . . . . . .   5
-     2.7.  IANA Considerations . . . . . . . . . . . . . . . . . . .   6
-     2.8.  Security Considerations . . . . . . . . . . . . . . . . .   6
-   3.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
-   4.  Informative References  . . . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+   1.  Introduction
+     1.1.  Requirements Language
+   2.  The Mobile-Subscription Option
+     2.1.  Client Behavior
+     2.2.  Server Behavior
+     2.3.  The Mobile Subscription IPv4 DHCP Option
+     2.4.  The Mobile Subscription IPv6 DHCP Option
+     2.5.  The Mobile Subscription IPv6 RA Option
+     2.6.  Precedence of API URIs
+     2.7.  IANA Considerations
+     2.8.  Security Considerations
+   3.  Normative References
+   4.  Informative References
+   Authors' Addresses
 
 1.  Introduction
 
@@ -102,17 +87,6 @@ Table of Contents
    option (Mobile-Sub-Id) and an IPv6 Router Advertisement (RA)
    [RFC4861]that inform mobile clients to exchange Mobile Subscription
    Information with the network.
-
-
-
-
-
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 2]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
 
 1.1.  Requirements Language
 
@@ -162,21 +136,12 @@ Internet-Draft               mobile-sub-info                   July 2023
    maximum length of the URI that can be carried in DHCPv4 is 255 bytes,
    URIs SHOULD not be longer than 255 bytes.  If the network supports
    only DHCPv6, the restriction can be relaxed.  The URL MUST not
-
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 3]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
-
    contain any explicit IP address information.
 
 2.3.  The Mobile Subscription IPv4 DHCP Option
 
    The format of the IPv4 Mobile Subscription DHCP option is shown
    below.
-
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -202,7 +167,6 @@ Internet-Draft               mobile-sub-info                   July 2023
    The format of the IPv6 Mobile Subscription DHCP option is shown
    below.
 
-
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -219,20 +183,12 @@ Internet-Draft               mobile-sub-info                   July 2023
 
       option-len:  The unsigned 16-bit length, in octets, of the URI.
 
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 4]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
-
       URI:  The URI for the mobile subscription API endpoint to which
          the user should connect (encoded following the rules in ).
 
 2.5.  The Mobile Subscription IPv6 RA Option
 
    The format of the IPv6 Mobile Subscription RA option is shown below.
-
 
       0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -275,13 +231,6 @@ Internet-Draft               mobile-sub-info                   July 2023
    client choose not to use this option or the EAP-AKA process fails, it
    does not impact the DHCP and RA process.
 
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 5]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
-
    In this draft, we present EAP-AKA as the mobile information exchange
    method.  However, other methods could also be considered.  This is
    out-of-scope of this draft.
@@ -292,7 +241,12 @@ Internet-Draft               mobile-sub-info                   July 2023
 
 2.8.  Security Considerations
 
-   TBD
+   The Option contains a URL that is transmitted in unencrypted plain
+   text.  An attacker on the same LAN segment may setup a rogue DHCP
+   server or send out rogue RA to mis-guide the victim to connect to an
+   attacker's server.  Even through the EAP-AKA transaction is protected
+   by the EAP-AKA security framework, the client MUST reject any Option
+   that doesn't use HTTPS [RFC2818] as the communication protocol.
 
 3.  Normative References
 
@@ -331,13 +285,6 @@ Internet-Draft               mobile-sub-info                   July 2023
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 6]
-
-Internet-Draft               mobile-sub-info                   July 2023
-
-
 4.  Informative References
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -365,28 +312,3 @@ Authors' Addresses
    Philadelphia, PA 19103
    United States of America
    Email: yiu_lee@comcast.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Muthusamy & Lee          Expires 2 January 2024                 [Page 7]
