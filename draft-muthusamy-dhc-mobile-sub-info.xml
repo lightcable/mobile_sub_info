@@ -118,8 +118,8 @@
          a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
          <xref target="RFC4187"/> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
-         As such, it bypasses some of the DHCP/RA protocol restrictions such as the 255-byte length restriction imposed by DHCPv4
-         option. Upon successful information exchange, the network MAY continue to provide similar mobile network services
+         As such, it relaxes the 255-byte length restriction imposed by DHCPv4 option. Upon successful information exchange, 
+         the network MAY continue to provide similar mobile network services
          (e.g., Parental Control) after the client switching from the mobile network to the Wi-Fi network using
          SSID/PSK combination.</t>
 
@@ -129,7 +129,7 @@
             Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without
             explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or
-            its local policy chooses not to respond.</t>
+            its local policy chooses not to respond to the request.</t>
          </section>
 
          <section numbered="true" toc="default">
@@ -164,7 +164,7 @@
                <li>
                   <dl indent="3" newline="false" spacing="normal">
                      <dt>Code:</dt>
-                     <dd>The Captive-Portal DHCPv4 Option (TBD) (one octet).</dd>
+                     <dd>The Mobile Subscription Inormation DHCPv4 Option (TBD) (one octet).</dd>
                      <dt>Len:</dt>
                      <dd>The length (one octet), in octets, of the URI.</dd>
                      <dt>URI:</dt>
@@ -197,7 +197,7 @@
                <li>
                   <dl indent="3" newline="false" spacing="normal">
                      <dt>option-code:</dt>
-                     <dd>The Captive-Portal DHCPv6 Option (TBD) (two octet).</dd>
+                     <dd>The Mobile Subscription DHCPv6 Option (TBD) (two octet).</dd>
                      <dt>option-len:</dt>
                      <dd>The unsigned 16-bit length, in octets, of the URI.</dd>
                      <dt>URI:</dt>
