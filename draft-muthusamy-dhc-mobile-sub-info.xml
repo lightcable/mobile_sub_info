@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
     please see http://xml.resource.org/authoring/README.html. -->
@@ -46,6 +45,20 @@
             <!-- uri and facsimile elements may also be added -->
          </address>
       </author>
+            <author fullname="Ruchi Kothari" initials="R." surname="Kothari">
+         <organization>Comcast</organization>
+         <address>
+            <postal>
+               <street>1800 Arch Street</street>
+               <city>Philadelphia</city>
+               <region>PA</region>
+               <code>19103</code>
+               <country>USA</country>
+            </postal>
+            <email>Ruchi_Kothari@comcast.com</email>
+            <!-- uri and facsimile elements may also be added -->
+         </address>
+      </author>
       <date year="2023" />
       <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
         in the current day for you. If only the current year is specified, xml2rfc will fill
@@ -66,12 +79,12 @@
         output. If you submit your draft to the RFC Editor, the
         keywords will be used for the search engine. -->
       <abstract>
-         <t>In some environments where a mobile client joins a network via simple DHCP process,
-         the serving network may want to know the mobile client's mobile subscription information. This is
-         particularly useful when a mobile client switches to a private Wi-Fi network such
-         as home network which uses simple SSID/Pre-Shared-Key combination. The network can use the mobile
-         subscription information to identify the client's serving mobile network and provide service
-         continuity.</t>
+         <t>In some environments where a mobile client joins a network via simple DHCP process and/or
+            IPv6 Router Advertisement,the serving network may want to know the mobile client's mobile
+            subscription information. This is particularly useful when a mobile client switches to a
+            private Wi-Fi network such as home network which uses simple SSID/Pre-Shared-Key combination.
+            The network can use the mobile subscription information to identify the client's serving
+            mobile network and provide service continuity.</t>
       </abstract>
    </front>
    <middle>
@@ -80,19 +93,18 @@
          <t>
             When a mobile client roams in the range of a known Wi-Fi network, it is common
             for the mobile client to switch from the mobile network to the Wi-Fi network. The Wi-Fi network
-            may be seup to use simple SSID/Pre-Shared-Key combination (e.g., home private network) and
-            does not require EAP-AKA authentication <xref target="RFC4187"/> for the client to join
+            may be setup to use simple SSID/Pre-Shared-Key combination (e.g., home private network) and
+            does not require EAP-AKA authentication <xref target="RFC4187" /> for the client to join
             the network. As such the network will not be able to identify the client's mobile
             subscription. In an environment where the mobile network
             and the Wi-Fi network are of the same service provider, the service provider may want
             to retrieve the mobile subscription information from the client and offer service continuity
-            (e.g., Parental Control) while the client is on the Wi-Fi network.
+            (e.g., Parental Control) while the client is on the private Wi-Fi network.
          </t>
          <t>
-            In this draft, we define a DHCPv4 <xref target="RFC2131"/> and DHCPv6
-            <xref target="RFC8415"/> option (Mobile-Sub-Id) and an IPv6 Router Advertisement
-            (RA) <xref target="RFC4861"/>that inform mobile clients to exchange Mobile Subscription Information
-            with the network.
+            In this draft, we define a DHCPv4 <xref target="RFC2131" /> and DHCPv6 <xref target="RFC8415" />
+            option (Mobile-Sub-Info) and an IPv6 Router Advertisement (RA) <xref target="RFC4861" />
+            that inform mobile clients to exchange Mobile Subscription Information with the network.
          </t>
          <section numbered="true" toc="default">
             <name>Requirements Language</name>
@@ -106,49 +118,45 @@
             </t>
          </section>
       </section>
-
-
       <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
       <section numbered="true" toc="default">
-         <name>The Mobile-Subscription Option</name>
-         <t>The Mobile Subscription DHCP/RA Option signals the client that the network wants to obtain the Mobile
+         <name>The Mobile-Subscription Information Option</name>
+         <t>
+            The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info) signals the client that the network wants to obtain the Mobile
          subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP
-         and Router Advertisements (RAs) defined in <xref target="RFC8910"/>. The Mobile Subscription Option contains
+         and Router Advertisements (RAs) defined in <xref target="RFC8910" />. The Mobile-Sub-Info Option contains
          a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
-         <xref target="RFC4187"/> with the network. The process is outside of the DHCP and RA protocol process
+         <xref target="RFC4187" /> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
-         As such, it bypasses some of the DHCP/RA protocol restrictions such as the 255-byte length restriction imposed by DHCPv4
-         option. Upon successful information exchange, the network MAY continue to provide similar mobile network services
+         As such, it relaxes the 255-byte length restriction imposed by DHCPv4 option. Upon successful information exchange,
+         the network MAY continue to provide similar mobile network services
          (e.g., Parental Control) after the client switching from the mobile network to the Wi-Fi network using
-         SSID/PSK combination.</t>
-
+         SSID/PSK combination.
+         </t>
          <section numbered="true" toc="default">
             <name>Client Behavior</name>
-            <t>Clients that support Mobile-Subscription DHCP option SHOULD include the option in the Parameter
-            Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without
+            <t>Clients that support Mobile-Sub-Info DHCP option SHOULD include the option in the Parameter
+            Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Sub-Info option without
             explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or
-            its local policy chooses not to respond.</t>
+            its local policy chooses not to respond to the request.</t>
          </section>
-
          <section numbered="true" toc="default">
             <name>Server Behavior</name>
             <t>To support different types of clients (e.g., IPv4-only, IPv6-only with DHCPv6 and IPv6-only with RA),
-            the network must provide different methods to inform the client of supporting the Mobile-Subscription option.
+            the network must provide different methods to inform the client of supporting the Mobile-Sub-Info option.
             The network SHOULD provision identical Mobile-Subscription-URI in each method to avoid ambiguity. As of the
             maximum length of the URI that can be carried in DHCPv4 is 255 bytes, URIs SHOULD not be longer than 255 bytes.
             If the network supports only DHCPv6, the restriction can be relaxed. The URL MUST not contain any explicit
             IP address information.</t>
          </section>
-
          <section numbered="true" toc="default">
-            <name>The Mobile Subscription IPv4 DHCP Option</name>
-            <t>The format of the IPv4 Mobile Subscription DHCP option is shown below.</t>
+            <name>The Mobile-Sub-Info IPv4 DHCP Option</name>
+            <t>The format of the Mobile-Sub-Info DHCP option is shown below.</t>
             <figure align="left" suppress-title="false" pn="figure-1">
-               <name slugifiedName="mobie-sub-dhcpv4-option">Mobile Subscription DHCPv4 Option Format</name>
+               <name slugifiedName="mobie-sub-dhcpv4-option">Mobile-Sub-Info DHCPv4 Option Format</name>
                <artwork name="" type="" align="left" alt="">
-
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -156,15 +164,13 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    .                   ...URI continued...                         .
    |                              ...                              |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-               </artwork>
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</artwork>
             </figure>
             <ul empty="true" bare="false" indent="3" spacing="normal">
                <li>
                   <dl indent="3" newline="false" spacing="normal">
                      <dt>Code:</dt>
-                     <dd>The Captive-Portal DHCPv4 Option (TBD) (one octet).</dd>
+                     <dd>The Mobile Subscription Inormation DHCPv4 Option (TBD) (one octet).</dd>
                      <dt>Len:</dt>
                      <dd>The length (one octet), in octets, of the URI.</dd>
                      <dt>URI:</dt>
@@ -174,14 +180,12 @@
                </li>
             </ul>
          </section>
-
          <section numbered="true" toc="default">
-            <name>The Mobile Subscription IPv6 DHCP Option</name>
-            <t>The format of the IPv6 Mobile Subscription DHCP option is shown below.</t>
+            <name>The Mobile-Sub-Info IPv6 DHCP Option</name>
+            <t>The format of the Mobile-Sub-Info DHCP option is shown below.</t>
             <figure align="left" suppress-title="false" pn="figure-2">
-               <name slugifiedName="mobie-sub-dhcpv6-option">Mobile Subscription DHCPv6 Option Format</name>
+               <name slugifiedName="mobie-sub-dhcpv6-option">Mobile-Sub-Info DHCPv6 Option Format</name>
                <artwork name="" type="" align="left" alt="">
-
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -189,15 +193,13 @@
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    .                      URI (variable length)                    .
    |                              ...                              |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-               </artwork>
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</artwork>
             </figure>
             <ul empty="true" bare="false" indent="3" spacing="normal">
                <li>
                   <dl indent="3" newline="false" spacing="normal">
                      <dt>option-code:</dt>
-                     <dd>The Captive-Portal DHCPv6 Option (TBD) (two octet).</dd>
+                     <dd>The Mobile Subscription DHCPv6 Option (TBD) (two octet).</dd>
                      <dt>option-len:</dt>
                      <dd>The unsigned 16-bit length, in octets, of the URI.</dd>
                      <dt>URI:</dt>
@@ -207,14 +209,12 @@
                </li>
             </ul>
          </section>
-
-          <section numbered="true" toc="default">
-            <name>The Mobile Subscription IPv6 RA Option</name>
-            <t>The format of the IPv6 Mobile Subscription RA option is shown below.</t>
+         <section numbered="true" toc="default">
+            <name>The Mobile-Sub-Info IPv6 RA Option</name>
+            <t>The format of the Mobile-Sub-Info RA option is shown below.</t>
             <figure align="left" suppress-title="false" pn="figure-3">
                <name slugifiedName="mobile-sub-ra-option">Mobile Subscription RA Option Format</name>
                <artwork name="" type="" align="left" alt="">
-
    0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -223,67 +223,73 @@
    .                                                               .
    .                                                               .
    .                                                               .
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-              </artwork>
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</artwork>
             </figure>
-
             <ul empty="true" bare="false" indent="3" spacing="normal">
-              <li>
-            <dl newline="false" spacing="normal" indent="3">
-              <dt>Type:</dt>
-              <dd>TBD</dd>
-              <dt>Length:</dt>
-              <dd>8-bit unsigned integer. The length of the
+               <li>
+                  <dl newline="false" spacing="normal" indent="3">
+                     <dt>Type:</dt>
+                     <dd>TBD</dd>
+                     <dt>Length:</dt>
+                     <dd>8-bit unsigned integer. The length of the
             option (including the Type and Length fields) in units of 8
             bytes.</dd>
-              <dt>URI:</dt>
-              <dd>The URI for the mobile subscription API endpoint to
-            which the user should connect. This <bcp14>MUST</bcp14> be padded with NUL
+                     <dt>URI:</dt>
+                     <dd>
+                        The URI for the mobile subscription API endpoint to
+            which the user should connect. This
+                        <bcp14>MUST</bcp14>
+                        be padded with NUL
             (0x00) to make the total option length (including the Type and
-            Length fields) a multiple of 8 bytes.</dd>
-            </dl>
-          </li>
-        </ul>
-        <t indent="0">Note that the URI parameter is not guaranteed to be null terminated.</t>
-        <t indent="0">As the maximum length of the URI that can be carried in IPv4 DHCP is
-        255 bytes, URIs longer than this <bcp14>SHOULD NOT</bcp14> be provisioned via
-        IPv6 RA options.</t>
-
+            Length fields) a multiple of 8 bytes.
+                     </dd>
+                  </dl>
+               </li>
+            </ul>
+            <t indent="0">Note that the URI parameter is not guaranteed to be null terminated.</t>
+            <t indent="0">
+               As the maximum length of the URI that can be carried in IPv4 DHCP is
+        255 bytes, URIs longer than this
+               <bcp14>SHOULD NOT</bcp14>
+               be provisioned via
+        IPv6 RA options.
+            </t>
          </section>
-
          <section numbered="true" toc="default">
             <name>Precedence of API URIs</name>
             <t>
                When client receives the Mobile-Subscription option and supports this option, it
                SHOULD retrieve the URL from the option and initiate a GET request
-               <xref target="RFC2616" /> with the URL over HTTPS <xref target="RFC2818" />. When
+               <xref target="RFC2616" />
+               with the URL over HTTPS
+               <xref target="RFC2818" />
+               . When
                the network receives the request, it SHOULD start the EAP-AKA process
-               over HTTPS <xref target="RFC4187" />
+               over HTTPS
+               <xref target="RFC4187" />
                by sending EAP-Request/AKA-Identity to exchange mobile subscription information
                with the client. Note that this precedence is independent to the DHCP and RA protocol.
                Should a client choose not to use this option or the EAP-AKA process fails, it does not
                impact the DHCP and RA process.
             </t>
-            <t>
-               In this draft, we present EAP-AKA as the mobile information exchange method. However, other
-               methods could also be considered. This is out-of-scope of this draft.
-            </t>
+            <t>In this draft, we present EAP-AKA as the mobile information exchange method. However, other
+               methods could also be considered. This is out-of-scope of this draft.</t>
          </section>
-
          <section anchor="IANA" numbered="true" toc="default">
             <name>IANA Considerations</name>
             <t>Option TBA</t>
          </section>
-
          <section anchor="Security" numbered="true" toc="default">
             <name>Security Considerations</name>
-            <t>The Option contains a URL that is transmitted in unencrypted plain
+            <t>
+               The Option contains a URL that is transmitted in unencrypted plain
                 text.  An attacker on the same LAN segment may setup a rogue DHCP
                 server or send out rogue RA to mis-guide the victim to connect to an
-                attacker's server.  Even through the EAP-AKA transaction is protected
-                by the EAP-AKA security framework, the client MUST reject any Option
-                that doesn't use HTTPS [RFC2818] as the communication protocol.</t>
+                attacker's server. The EAP-AKA transaction is protected
+                by the EAP-AKA security framework. That being said, the client MUST
+                initiate the request over HTTPS <xref target="RFC2818" /> and disgard
+                any non HTTPS protocol (i.e., HTTP) proposed in the option.
+            </t>
          </section>
       </section>
    </middle>
@@ -311,7 +317,6 @@
          <?rfc include="reference.RFC.8174.xml" ?>
          <?rfc include="reference.RFC.8910.xml" ?>
       </references>
-
       <!-- Change Log
 
          v00 - First Draft (20230629)
