@@ -181,11 +181,12 @@
             </ul>
          </section>
          <section numbered="true" toc="default">
-            <name>The Mobile Subscription Info IPv6 DHCP Option</name>
-            <t>The format of the IPv6 Mobile Subscription Info DHCP option is shown below.</t>
+            <name>The Mobile-Sub-Info IPv6 DHCP Option</name>
+            <t>The format of the Mobile-Sub-Info DHCP option is shown below.</t>
             <figure align="left" suppress-title="false" pn="figure-2">
-               <name slugifiedName="mobie-sub-dhcpv6-option">Mobile Subscription DHCPv6 Option Format</name>
-               <artwork name="" type="" align="left" alt="">0                   1                   2                   3
+               <name slugifiedName="mobie-sub-dhcpv6-option">Mobile-Sub-Info DHCPv6 Option Format</name>
+               <artwork name="" type="" align="left" alt="">
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |          option-code          |          option-len           |
@@ -209,11 +210,12 @@
             </ul>
          </section>
          <section numbered="true" toc="default">
-            <name>The Mobile Subscription Info IPv6 RA Option</name>
-            <t>The format of the IPv6 Mobile Subscription Info RA option is shown below.</t>
+            <name>The Mobile-Sub-Info IPv6 RA Option</name>
+            <t>The format of the Mobile-Sub-Info RA option is shown below.</t>
             <figure align="left" suppress-title="false" pn="figure-3">
                <name slugifiedName="mobile-sub-ra-option">Mobile Subscription RA Option Format</name>
-               <artwork name="" type="" align="left" alt="">0                   1                   2                   3
+               <artwork name="" type="" align="left" alt="">
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Type      |     Length    |              URI              .

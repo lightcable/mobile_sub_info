@@ -58,12 +58,12 @@ Table of Contents
 
    1.  Introduction
      1.1.  Requirements Language
-   2.  The Mobile-Subscription Option
+   2.  The Mobile-Subscription Information Option
      2.1.  Client Behavior
      2.2.  Server Behavior
-     2.3.  The Mobile Subscription IPv4 DHCP Option
-     2.4.  The Mobile Subscription IPv6 DHCP Option
-     2.5.  The Mobile Subscription IPv6 RA Option
+     2.3.  The Mobile-Sub-Info IPv4 DHCP Option
+     2.4.  The Mobile-Sub-Info IPv6 DHCP Option
+     2.5.  The Mobile-Sub-Info IPv6 RA Option
      2.6.  Precedence of API URIs
      2.7.  IANA Considerations
      2.8.  Security Considerations
@@ -86,7 +86,7 @@ Table of Contents
    Parental Control) while the client is on the private Wi-Fi network.
 
    In this draft, we define a DHCPv4 [RFC2131] and DHCPv6 [RFC8415]
-   option (Mobile-Sub-Id) and an IPv6 Router Advertisement (RA)
+   option (Mobile-Sub-Info) and an IPv6 Router Advertisement (RA)
    [RFC4861] that inform mobile clients to exchange Mobile Subscription
    Information with the network.
 
@@ -98,53 +98,53 @@ Table of Contents
    14 RFC 2119 [RFC2119] RFC 8174 [RFC8174] when, and only when, they
    appear in all capitals, as shown here.
 
-2.  The Mobile-Subscription Option
+2.  The Mobile-Subscription Information Option
 
-   The Mobile Subscription DHCP/RA Option signals the client that the
-   network wants to obtain the Mobile subscription Information from the
-   client.  The option contains a URL the client may use it to securely
-   exchange mobile subscription information with the network.  The
-   mechanism is similar to Captive-Portal Identification in DHCP and
-   Router Advertisements (RAs) defined in [RFC8910].  The Mobile
-   Subscription Option contains a URL that provides a web address to the
-   client to initiate a secure connection to trigger the EAP-AKA process
-   [RFC4187] with the network.  The process is outside of the DHCP and
-   RA protocol process that gives flexibility to the client and network
-   to use standard web technology to securely exchange messages.  As
-   such, it relaxes the 255-byte length restriction imposed by DHCPv4
-   option.  Upon successful information exchange, the network MAY
-   continue to provide similar mobile network services (e.g., Parental
-   Control) after the client switching from the mobile network to the
-   Wi-Fi network using SSID/PSK combination.
+   The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info)
+   signals the client that the network wants to obtain the Mobile
+   subscription Information from the client.  The option contains a URL
+   the client may use it to securely exchange mobile subscription
+   information with the network.  The mechanism is similar to Captive-
+   Portal Identification in DHCP and Router Advertisements (RAs) defined
+   in [RFC8910].  The Mobile-Sub-Info Option contains a URL that
+   provides a web address to the client to initiate a secure connection
+   to trigger the EAP-AKA process [RFC4187] with the network.  The
+   process is outside of the DHCP and RA protocol process that gives
+   flexibility to the client and network to use standard web technology
+   to securely exchange messages.  As such, it relaxes the 255-byte
+   length restriction imposed by DHCPv4 option.  Upon successful
+   information exchange, the network MAY continue to provide similar
+   mobile network services (e.g., Parental Control) after the client
+   switching from the mobile network to the Wi-Fi network using SSID/PSK
+   combination.
 
 2.1.  Client Behavior
 
-   Clients that support Mobile-Subscription DHCP option SHOULD include
-   the option in the Parameter Request List in DHCPREQUEST message.
-   DHCP server MAY send the Mobile-Subscription option without explicit
-   request.  Client receives the URL in the option MAY initiate a
-   request to the network to exchange Mobile Subscription Information.
-   Client MAY safely ignore the option either it doesn't support it or
-   its local policy chooses not to respond to the request.
+   Clients that support Mobile-Sub-Info DHCP option SHOULD include the
+   option in the Parameter Request List in DHCPREQUEST message.  DHCP
+   server MAY send the Mobile-Sub-Info option without explicit request.
+   Client receives the URL in the option MAY initiate a request to the
+   network to exchange Mobile Subscription Information.  Client MAY
+   safely ignore the option either it doesn't support it or its local
+   policy chooses not to respond to the request.
 
 2.2.  Server Behavior
 
    To support different types of clients (e.g., IPv4-only, IPv6-only
    with DHCPv6 and IPv6-only with RA), the network must provide
-   different methods to inform the client of supporting the Mobile-
-   Subscription option.  The network SHOULD provision identical Mobile-
+   different methods to inform the client of supporting the Mobile-Sub-
+   Info option.  The network SHOULD provision identical Mobile-
    Subscription-URI in each method to avoid ambiguity.  As of the
    maximum length of the URI that can be carried in DHCPv4 is 255 bytes,
    URIs SHOULD not be longer than 255 bytes.  If the network supports
    only DHCPv6, the restriction can be relaxed.  The URL MUST not
    contain any explicit IP address information.
 
-2.3.  The Mobile Subscription IPv4 DHCP Option
+2.3.  The Mobile-Sub-Info IPv4 DHCP Option
 
-   The format of the IPv4 Mobile Subscription DHCP option is shown
-   below.
+   The format of the Mobile-Sub-Info DHCP option is shown below.
 
-   0                   1                   2                   3
+      0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       | Code          | Len           | URI (variable length) ...     |
@@ -153,7 +153,7 @@ Table of Contents
       |                              ...                              |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 1: Mobile Subscription DHCPv4 Option Format
+               Figure 1: Mobile-Sub-Info DHCPv4 Option Format
 
       Code:  The Mobile Subscription Inormation DHCPv4 Option (TBD) (one
          octet).
@@ -163,12 +163,11 @@ Table of Contents
       URI:  The URI for the mobile subscription API endpoint to which
          the user should connect.
 
-2.4.  The Mobile Subscription IPv6 DHCP Option
+2.4.  The Mobile-Sub-Info IPv6 DHCP Option
 
-   The format of the IPv6 Mobile Subscription DHCP option is shown
-   below.
+   The format of the Mobile-Sub-Info DHCP option is shown below.
 
-   0                   1                   2                   3
+      0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       |          option-code          |          option-len           |
@@ -177,7 +176,7 @@ Table of Contents
       |                              ...                              |
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-             Figure 2: Mobile Subscription DHCPv6 Option Format
+               Figure 2: Mobile-Sub-Info DHCPv6 Option Format
 
       option-code:  The Mobile Subscription DHCPv6 Option (TBD) (two
          octet).
@@ -187,11 +186,11 @@ Table of Contents
       URI:  The URI for the mobile subscription API endpoint to which
          the user should connect (encoded following the rules in ).
 
-2.5.  The Mobile Subscription IPv6 RA Option
+2.5.  The Mobile-Sub-Info IPv6 RA Option
 
-   The format of the IPv6 Mobile Subscription RA option is shown below.
+   The format of the Mobile-Sub-Info RA option is shown below.
 
-   0                   1                   2                   3
+      0                   1                   2                   3
       0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
       |     Type      |     Length    |              URI              .

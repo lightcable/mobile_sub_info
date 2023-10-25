@@ -1139,7 +1139,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-the-mobile-subscription-opt" class="internal xref">The Mobile-Subscription Option</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-the-mobile-subscription-inf" class="internal xref">The Mobile-Subscription Information Option</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-client-behavior" class="internal xref">Client Behavior</a></p>
@@ -1148,13 +1148,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-server-behavior" class="internal xref">Server Behavior</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-the-mobile-subscription-ipv" class="internal xref">The Mobile Subscription IPv4 DHCP Option</a></p>
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-the-mobile-sub-info-ipv4-dh" class="internal xref">The Mobile-Sub-Info IPv4 DHCP Option</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
-                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-the-mobile-subscription-ipv6" class="internal xref">The Mobile Subscription IPv6 DHCP Option</a></p>
+                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-the-mobile-sub-info-ipv6-dh" class="internal xref">The Mobile-Sub-Info IPv6 DHCP Option</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.5">
-                <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-the-mobile-subscription-ipv6-" class="internal xref">The Mobile Subscription IPv6 RA Option</a></p>
+                <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-the-mobile-sub-info-ipv6-ra" class="internal xref">The Mobile-Sub-Info IPv6 RA Option</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.6">
                 <p id="section-toc.1-1.2.2.6.1"><a href="#section-2.6" class="auto internal xref">2.6</a>.  <a href="#name-precedence-of-api-uris" class="internal xref">Precedence of API URIs</a></p>
@@ -1196,7 +1196,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             (e.g., Parental Control) while the client is on the private Wi-Fi network.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">
             In this draft, we define a DHCPv4 <span>[<a href="#RFC2131" class="cite xref">RFC2131</a>]</span> and DHCPv6 <span>[<a href="#RFC8415" class="cite xref">RFC8415</a>]</span>
-            option (Mobile-Sub-Id) and an IPv6 Router Advertisement (RA) <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span>
+            option (Mobile-Sub-Info) and an IPv6 Router Advertisement (RA) <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span>
             that inform mobile clients to exchange Mobile Subscription Information with the network.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <section id="section-1.1">
         <h3 id="name-requirements-language">
@@ -1212,14 +1212,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </section>
 </section>
 <section id="section-2">
-      <h2 id="name-the-mobile-subscription-opt">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-the-mobile-subscription-opt" class="section-name selfRef">The Mobile-Subscription Option</a>
+      <h2 id="name-the-mobile-subscription-inf">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-the-mobile-subscription-inf" class="section-name selfRef">The Mobile-Subscription Information Option</a>
       </h2>
 <p id="section-2-1">
-            The Mobile Subscription DHCP/RA Option signals the client that the network wants to obtain the Mobile
+            The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info) signals the client that the network wants to obtain the Mobile
          subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP
-         and Router Advertisements (RAs) defined in <span>[<a href="#RFC8910" class="cite xref">RFC8910</a>]</span>. The Mobile Subscription Option contains
+         and Router Advertisements (RAs) defined in <span>[<a href="#RFC8910" class="cite xref">RFC8910</a>]</span>. The Mobile-Sub-Info Option contains
          a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
          <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
@@ -1231,8 +1231,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-client-behavior">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-client-behavior" class="section-name selfRef">Client Behavior</a>
         </h3>
-<p id="section-2.1-1">Clients that support Mobile-Subscription DHCP option SHOULD include the option in the Parameter
-            Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Subscription option without
+<p id="section-2.1-1">Clients that support Mobile-Sub-Info DHCP option SHOULD include the option in the Parameter
+            Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Sub-Info option without
             explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or
             its local policy chooses not to respond to the request.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
@@ -1242,20 +1242,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-server-behavior" class="section-name selfRef">Server Behavior</a>
         </h3>
 <p id="section-2.2-1">To support different types of clients (e.g., IPv4-only, IPv6-only with DHCPv6 and IPv6-only with RA),
-            the network must provide different methods to inform the client of supporting the Mobile-Subscription option.
+            the network must provide different methods to inform the client of supporting the Mobile-Sub-Info option.
             The network SHOULD provision identical Mobile-Subscription-URI in each method to avoid ambiguity. As of the
             maximum length of the URI that can be carried in DHCPv4 is 255 bytes, URIs SHOULD not be longer than 255 bytes.
             If the network supports only DHCPv6, the restriction can be relaxed. The URL MUST not contain any explicit
             IP address information.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 <section id="section-2.3">
-        <h3 id="name-the-mobile-subscription-ipv">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-the-mobile-subscription-ipv" class="section-name selfRef">The Mobile Subscription IPv4 DHCP Option</a>
+        <h3 id="name-the-mobile-sub-info-ipv4-dh">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-the-mobile-sub-info-ipv4-dh" class="section-name selfRef">The Mobile-Sub-Info IPv4 DHCP Option</a>
         </h3>
-<p id="section-2.3-1">The format of the IPv4 Mobile Subscription DHCP option is shown below.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<span id="name-mobile-subscription-dhcpv4-"></span><figure id="figure-1">
+<p id="section-2.3-1">The format of the Mobile-Sub-Info DHCP option is shown below.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<span id="name-mobile-sub-info-dhcpv4-opti"></span><figure id="figure-1">
           <div class="alignLeft art-text artwork" id="section-2.3-2.1">
-<pre>0                   1                   2                   3
+<pre>
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    | Code          | Len           | URI (variable length) ...     |
@@ -1265,7 +1266,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</pre>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-mobile-subscription-dhcpv4-" class="selfRef">Mobile Subscription DHCPv4 Option Format</a>
+<a href="#name-mobile-sub-info-dhcpv4-opti" class="selfRef">Mobile-Sub-Info DHCPv4 Option Format</a>
           </figcaption></figure>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.3-3.1">
@@ -1288,13 +1289,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </ul>
 </section>
 <section id="section-2.4">
-        <h3 id="name-the-mobile-subscription-ipv6">
-<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-the-mobile-subscription-ipv6" class="section-name selfRef">The Mobile Subscription IPv6 DHCP Option</a>
+        <h3 id="name-the-mobile-sub-info-ipv6-dh">
+<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-the-mobile-sub-info-ipv6-dh" class="section-name selfRef">The Mobile-Sub-Info IPv6 DHCP Option</a>
         </h3>
-<p id="section-2.4-1">The format of the IPv6 Mobile Subscription DHCP option is shown below.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<span id="name-mobile-subscription-dhcpv6-"></span><figure id="figure-2">
+<p id="section-2.4-1">The format of the Mobile-Sub-Info DHCP option is shown below.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<span id="name-mobile-sub-info-dhcpv6-opti"></span><figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-2.4-2.1">
-<pre>0                   1                   2                   3
+<pre>
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |          option-code          |          option-len           |
@@ -1304,7 +1306,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-mobile-subscription-dhcpv6-" class="selfRef">Mobile Subscription DHCPv6 Option Format</a>
+<a href="#name-mobile-sub-info-dhcpv6-opti" class="selfRef">Mobile-Sub-Info DHCPv6 Option Format</a>
           </figcaption></figure>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-2.4-3.1">
@@ -1327,13 +1329,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </ul>
 </section>
 <section id="section-2.5">
-        <h3 id="name-the-mobile-subscription-ipv6-">
-<a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-the-mobile-subscription-ipv6-" class="section-name selfRef">The Mobile Subscription IPv6 RA Option</a>
+        <h3 id="name-the-mobile-sub-info-ipv6-ra">
+<a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-the-mobile-sub-info-ipv6-ra" class="section-name selfRef">The Mobile-Sub-Info IPv6 RA Option</a>
         </h3>
-<p id="section-2.5-1">The format of the IPv6 Mobile Subscription RA option is shown below.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
+<p id="section-2.5-1">The format of the Mobile-Sub-Info RA option is shown below.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
 <span id="name-mobile-subscription-ra-opti"></span><figure id="figure-3">
           <div class="alignLeft art-text artwork" id="section-2.5-2.1">
-<pre>0                   1                   2                   3
+<pre>
+   0                   1                   2                   3
    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |     Type      |     Length    |              URI              .
