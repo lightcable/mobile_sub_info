@@ -5,8 +5,8 @@
 Dynamic Host Configuration                                  S. Muthusamy
 Internet-Draft                                                    Y. Lee
 Intended status: Standards Track                              R. Kothari
-Expires: 27 April 2024                                           Comcast
-                                                         25 October 2023
+Expires: 28 April 2024                                           Comcast
+                                                         26 October 2023
 
 
        Mobile Subscription Info in DHCP and Router Advertisement
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 April 2024.
+   This Internet-Draft will expire on 28 April 2024.
 
 Copyright Notice
 
@@ -102,11 +102,11 @@ Table of Contents
 
    The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info)
    signals the client that the network wants to obtain the Mobile
-   subscription Information from the client.  The option contains a URL
+   subscription Information from the client.  The option contains a URI
    the client may use it to securely exchange mobile subscription
    information with the network.  The mechanism is similar to Captive-
    Portal Identification in DHCP and Router Advertisements (RAs) defined
-   in [RFC8910].  The Mobile-Sub-Info Option contains a URL that
+   in [RFC8910].  The Mobile-Sub-Info Option contains a URI that
    provides a web address to the client to initiate a secure connection
    to trigger the EAP-AKA process [RFC4187] with the network.  The
    process is outside of the DHCP and RA protocol process that gives
@@ -123,7 +123,7 @@ Table of Contents
    Clients that support Mobile-Sub-Info DHCP option SHOULD include the
    option in the Parameter Request List in DHCPREQUEST message.  DHCP
    server MAY send the Mobile-Sub-Info option without explicit request.
-   Client receives the URL in the option MAY initiate a request to the
+   Client receives the URI in the option MAY initiate a request to the
    network to exchange Mobile Subscription Information.  Client MAY
    safely ignore the option either it doesn't support it or its local
    policy chooses not to respond to the request.
@@ -137,7 +137,7 @@ Table of Contents
    Subscription-URI in each method to avoid ambiguity.  As of the
    maximum length of the URI that can be carried in DHCPv4 is 255 bytes,
    URIs SHOULD not be longer than 255 bytes.  If the network supports
-   only DHCPv6, the restriction can be relaxed.  The URL MUST not
+   only DHCPv6, the restriction can be relaxed.  The URI MUST not
    contain any explicit IP address information.
 
 2.3.  The Mobile-Sub-Info IPv4 DHCP Option
@@ -221,8 +221,8 @@ Table of Contents
 2.6.  Precedence of API URIs
 
    When client receives the Mobile-Subscription option and supports this
-   option, it SHOULD retrieve the URL from the option and initiate a GET
-   request [RFC2616] with the URL over HTTPS [RFC2818] . When the
+   option, it SHOULD retrieve the URI from the option and initiate a GET
+   request [RFC2616] with the URI over HTTPS [RFC2818] . When the
    network receives the request, it SHOULD start the EAP-AKA process
    over HTTPS [RFC4187] by sending EAP-Request/AKA-Identity to exchange
    mobile subscription information with the client.  Note that this
@@ -240,7 +240,7 @@ Table of Contents
 
 2.8.  Security Considerations
 
-   The Option contains a URL that is transmitted in unencrypted plain
+   The Option contains a URI that is transmitted in unencrypted plain
    text.  An attacker on the same LAN segment may setup a rogue DHCP
    server or send out rogue RA to mis-guide the victim to connect to an
    attacker's server.  The EAP-AKA transaction is protected by the EAP-
