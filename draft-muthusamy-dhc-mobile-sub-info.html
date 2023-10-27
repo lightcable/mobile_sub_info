@@ -1036,7 +1036,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Muthusamy, et al.</td>
+<<<<<<< HEAD
 <td class="center">Expires 28 April 2024</td>
+=======
+<td class="center">Expires 27 April 2024</td>
+>>>>>>> origin/main
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1049,12 +1053,20 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-saravanan-dhc-mobile-sub-info-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
+<<<<<<< HEAD
 <time datetime="2023-10-26" class="published">26 October 2023</time>
+=======
+<time datetime="2023-10-25" class="published">25 October 2023</time>
+>>>>>>> origin/main
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
+<<<<<<< HEAD
 <dd class="expires"><time datetime="2024-04-28">28 April 2024</time></dd>
+=======
+<dd class="expires"><time datetime="2024-04-27">27 April 2024</time></dd>
+>>>>>>> origin/main
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1101,7 +1113,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
+<<<<<<< HEAD
         This Internet-Draft will expire on 28 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+=======
+        This Internet-Draft will expire on 27 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+>>>>>>> origin/main
 </section>
 </div>
 <div id="copyright">
@@ -1217,10 +1233,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-2-1">
             The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info) signals the client that the network wants to obtain the Mobile
+<<<<<<< HEAD
          subscription Information from the client. The option contains a URI the client may use it to securely exchange mobile
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP
          and Router Advertisements (RAs) defined in <span>[<a href="#RFC8910" class="cite xref">RFC8910</a>]</span>. The Mobile-Sub-Info Option contains
          a URI that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
+=======
+         subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile
+         subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP
+         and Router Advertisements (RAs) defined in <span>[<a href="#RFC8910" class="cite xref">RFC8910</a>]</span>. The Mobile-Sub-Info Option contains
+         a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
+>>>>>>> origin/main
          <span>[<a href="#RFC4187" class="cite xref">RFC4187</a>]</span> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
          As such, it relaxes the 255-byte length restriction imposed by DHCPv4 option. Upon successful information exchange,
@@ -1233,7 +1256,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-2.1-1">Clients that support Mobile-Sub-Info DHCP option SHOULD include the option in the Parameter
             Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Sub-Info option without
+<<<<<<< HEAD
             explicit request. Client receives the URI in the option MAY initiate a request to the network to exchange
+=======
+            explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
+>>>>>>> origin/main
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or
             its local policy chooses not to respond to the request.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 </section>
@@ -1389,9 +1416,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-2.6-1">
                When client receives the Mobile-Subscription option and supports this option, it
+<<<<<<< HEAD
                SHOULD retrieve the URI from the option and initiate a GET request
                <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span>
                with the URI over HTTPS
+=======
+               SHOULD retrieve the URL from the option and initiate a GET request
+               <span>[<a href="#RFC2616" class="cite xref">RFC2616</a>]</span>
+               with the URL over HTTPS
+>>>>>>> origin/main
                <span>[<a href="#RFC2818" class="cite xref">RFC2818</a>]</span>
                . When
                the network receives the request, it SHOULD start the EAP-AKA process
@@ -1418,7 +1451,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.8" class="section-number selfRef">2.8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
         </h3>
 <p id="section-2.8-1">
+<<<<<<< HEAD
                The Option contains a URI that is transmitted in unencrypted plain
+=======
+               The Option contains a URL that is transmitted in unencrypted plain
+>>>>>>> origin/main
                 text.  An attacker on the same LAN segment may setup a rogue DHCP
                 server or send out rogue RA to mis-guide the victim to connect to an
                 attacker's server. The EAP-AKA transaction is protected
