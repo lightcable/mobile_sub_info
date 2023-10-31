@@ -123,10 +123,10 @@
          <name>The Mobile-Subscription Information Option</name>
          <t>
             The Mobile Subscription Information DHCP/RA Option (Mobile-Sub-Info) signals the client that the network wants to obtain the Mobile
-         subscription Information from the client. The option contains a URL the client may use it to securely exchange mobile
+         subscription Information from the client. The option contains a URI the client may use it to securely exchange mobile
          subscription information with the network. The mechanism is similar to Captive-Portal Identification in DHCP
          and Router Advertisements (RAs) defined in <xref target="RFC8910" />. The Mobile-Sub-Info Option contains
-         a URL that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
+         a URI that provides a web address to the client to initiate a secure connection to trigger the EAP-AKA process
          <xref target="RFC4187" /> with the network. The process is outside of the DHCP and RA protocol process
          that gives flexibility to the client and network to use standard web technology to securely exchange messages.
          As such, it relaxes the 255-byte length restriction imposed by DHCPv4 option. Upon successful information exchange,
@@ -138,7 +138,7 @@
             <name>Client Behavior</name>
             <t>Clients that support Mobile-Sub-Info DHCP option SHOULD include the option in the Parameter
             Request List in DHCPREQUEST message. DHCP server MAY send the Mobile-Sub-Info option without
-            explicit request. Client receives the URL in the option MAY initiate a request to the network to exchange
+            explicit request. Client receives the URI in the option MAY initiate a request to the network to exchange
             Mobile Subscription Information. Client MAY safely ignore the option either it doesn't support it or
             its local policy chooses not to respond to the request.</t>
          </section>
@@ -148,7 +148,7 @@
             the network must provide different methods to inform the client of supporting the Mobile-Sub-Info option.
             The network SHOULD provision identical Mobile-Subscription-URI in each method to avoid ambiguity. As of the
             maximum length of the URI that can be carried in DHCPv4 is 255 bytes, URIs SHOULD not be longer than 255 bytes.
-            If the network supports only DHCPv6, the restriction can be relaxed. The URL MUST not contain any explicit
+            If the network supports only DHCPv6, the restriction can be relaxed. The URI MUST not contain any explicit
             IP address information.</t>
          </section>
          <section numbered="true" toc="default">
@@ -259,12 +259,11 @@
             <name>Precedence of API URIs</name>
             <t>
                When client receives the Mobile-Subscription option and supports this option, it
-               SHOULD retrieve the URL from the option and initiate a GET request
+               SHOULD retrieve the URI from the option and initiate a GET request
                <xref target="RFC2616" />
-               with the URL over HTTPS
+               with the URI over HTTPS
                <xref target="RFC2818" />
-               . When
-               the network receives the request, it SHOULD start the EAP-AKA process
+               . When the network receives the request, it SHOULD start the EAP-AKA process
                over HTTPS
                <xref target="RFC4187" />
                by sending EAP-Request/AKA-Identity to exchange mobile subscription information
@@ -282,7 +281,8 @@
          <section anchor="Security" numbered="true" toc="default">
             <name>Security Considerations</name>
             <t>
-               The Option contains a URL that is transmitted in unencrypted plain
+               The Option contains a URI that is transmitted in unencrypted plain
+
                 text.  An attacker on the same LAN segment may setup a rogue DHCP
                 server or send out rogue RA to mis-guide the victim to connect to an
                 attacker's server. The EAP-AKA transaction is protected
